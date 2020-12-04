@@ -1,14 +1,14 @@
 const { getData } = require("../helper.js")
 
-function getResult(inputData) {
+function getResult(inputData, delta) {
     const grid = parseDataToMatrix(inputData)
     if (grid.length < 1 || grid[0].length < 1) return 0
 
     let treeCount = 0
     let rowIndex = 0
     let colIndex = 0
-    const deltaRow = 1
-    const deltaCol = 3
+    const deltaRow = delta.r
+    const deltaCol = delta.c
     const col = grid[0].length
     while (rowIndex < grid.length) {
         if (grid[rowIndex][colIndex] === "#") treeCount++
@@ -26,4 +26,7 @@ function parseDataToMatrix(data) {
     }
     return matrix
 }
-console.log(getResult(getData("input.txt")))
+
+exports.countTree = getResult
+
+console.log(getResult(getData("input.txt"), {r: 1, c: 3}))
