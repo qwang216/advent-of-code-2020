@@ -10,7 +10,7 @@ function getResult(inputData) {
 
     const pws = parseData(inputData) // [[min, max, letter, pw]]
     let validPwCount = 0
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < pws.length; i++) {
         const pw = pws[i]
         if (isValidPw(pw)) validPwCount ++
     }
@@ -31,11 +31,24 @@ function isValidPw(dataArr) {
         }
     }
 
-    return count >= min || count <= max
+    return count >= min && count <= max
 }
 
-function parseData(data) {
-    return // [[min, max, letter, pw]]
+function parseData(dataArr) {
+    let matrix = []
+    for (let i = 0; i < dataArr.length; i++) {
+        const splitData = dataArr[i].split(" ")
+        const pwRange = splitData[0].split("-")
+
+        const min = pwRange[0]
+        const max = pwRange[1]
+        const letter = splitData[1].substring(0, 1)
+        const pw = splitData[2]
+        let policy = [min, max, letter, pw]
+        matrix.push(policy)
+    }
+    return matrix
 }
 
+exports.parseData = parseData
 console.log(getResult(getData('input.txt')))

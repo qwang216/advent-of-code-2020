@@ -1,4 +1,5 @@
 const { getData } = require("../helper.js")
+const { parseData } = require("../02d/1q.js")
 
 function getResult(inputData) {
     const arrayData = parseData(inputData)
@@ -13,8 +14,8 @@ function getResult(inputData) {
 
 // parameter = [position, position, letter, pw]
 function isValidPw(dataArr) {
-    const p1 = dataArrp[0]
-    const p2 = dataArr[1]
+    const p1 = dataArr[0] - 1
+    const p2 = dataArr[1] - 1
     const pw = dataArr[3]
     if (p1 > pw.length) return false
     const letter = dataArr[2]
@@ -22,10 +23,6 @@ function isValidPw(dataArr) {
     if (pw[p1] === letter) count ++
     if (pw[p2] === letter) count ++ 
     return count == 1
-}
-
-function parseData(data) {
-    return // [[min, max, letter, pw]]
 }
 
 console.log(getResult(getData('input.txt')))
