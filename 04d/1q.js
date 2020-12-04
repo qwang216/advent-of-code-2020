@@ -10,11 +10,9 @@ function getResult(inputData) {
 }
 
 function isValidPassport(obj) {
-    console.log(obj)
     const requiredFields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i]
-        console.log(i)
         if (!obj.hasOwnProperty(field)) return false
     }
     return true
