@@ -15,22 +15,14 @@ function getResult(inputData) {
   for (let i = 0; i < sortedData.length - 2; i++) {
     let firstPointer = i + 1
     let secondPointer = sortedData.length - 1
-    let result = -Infinity
-    while (result !== targetNumber) {
-      if (secondPointer > firstPointer) {
+    let result = sortedData[0]
+    while (secondPointer > firstPointer) {
         result = sortedData[i] + sortedData[firstPointer] + sortedData[secondPointer]
-        if (result > targetNumber) {
-          secondPointer--
-        }
-        if (result < targetNumber) {
-          firstPointer++
-        }
+        if (result > targetNumber) secondPointer--
+        if (result < targetNumber) firstPointer++
         if (result === targetNumber) {
           return sortedData[i] * sortedData[firstPointer] * sortedData[secondPointer]
         }
-      } else {
-        break
-      }
     }
   }
   return nonFoundTriplet
