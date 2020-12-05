@@ -1,11 +1,14 @@
 const { getData } = require("../helper.js")
 
 function getResult(inputDataArr) {
+    console.log(inputDataArr)
     let maxSeatID = -Infinity
     for (let i = 0; i < inputDataArr.length; i++) {
         let currSeatID = calculateSeatID(inputDataArr[i])
         // print(currSeatID)
-        if (currSeatID > maxSeatID) maxSeatID = currSeatID
+        if (currSeatID > maxSeatID) { 
+            maxSeatID = currSeatID
+        }
     }
     return maxSeatID
 }
@@ -32,31 +35,23 @@ function calculateSeatID(boardingPass) {
 
 function calculatePartitionRange(partition) {
     if (partition === "F") {
-        const minPt = startingRangeFB.min
-        const maxPt = (startingRangeFB.max - startingRangeFB.min) / 2
-        startingRangeFB.min = minPt
+        const maxPt = (startingRangeFB.max + startingRangeFB.min) / 2
         startingRangeFB.max = Math.floor(maxPt)
     } else if (partition === "L") {
-        const minPt = startingRangeLR.min
-        const maxPt = (startingRangeLR.max - startingRangeLR.min) / 2 
-        startingRangeLR.min = minPt
+        const maxPt = (startingRangeLR.max + startingRangeLR.min) / 2 
         startingRangeLR.max = Math.floor(maxPt)
     } else if (partition === "B" ) {
         const minPt = (startingRangeFB.max + startingRangeFB.min) / 2
-        const maxPt = startingRangeFB.max
         startingRangeFB.min = Math.ceil(minPt)
-        startingRangeFB.max = maxPt
     } else if (partition === "R") {
         const minPt = (startingRangeLR.max + startingRangeLR.min) / 2
-        const maxPt = startingRangeLR.max
         startingRangeLR.min = Math.ceil(minPt)
-        startingRangeLR.max = maxPt
     }
 }
 
 function print(data) {
     console.log(data)
 }
-console.log(getResult(["BFFFBBFRRR"]))
+// console.log(getResult(["BBFFBBFRLL", "BFFFBBFRRR", "BBFFBBFRLL"]))
 
-// console.log(getResult(getData("input.txt")))
+console.log(getResult(getData("input.txt")))
