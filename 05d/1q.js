@@ -1,7 +1,6 @@
 const { getData } = require("../helper.js")
 
 function getResult(inputDataArr) {
-    console.log(inputDataArr)
     let maxSeatID = -Infinity
     for (let i = 0; i < inputDataArr.length; i++) {
         let currSeatID = calculateSeatID(inputDataArr[i])
@@ -49,9 +48,6 @@ function calculatePartitionRange(partition) {
     }
 }
 
-function print(data) {
-    console.log(data)
-}
 // console.log(getResult(["BBFFBBFRLL", "BFFFBBFRRR", "BBFFBBFRLL"]))
 
 console.log(getResult(getData("input.txt")))
