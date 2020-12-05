@@ -23,14 +23,14 @@ function calculateSeatID(boardingPass) {
     lastLRPartition = partitions[partitions.length - 1]
     for (let i = 0; i < partitions.length; i++) {
         const partition = partitions[i]
-        getPartitionRange(partition)
+        calculatePartitionRange(partition)
     }
     let row = lastFBPartition === "F" ? startingRangeFB.min : startingRangeFB.max
     let col = lastLRPartition === "L" ? startingRangeLR.min : startingRangeLR.max
     return (row * 8) + col
 }
 
-function getPartitionRange(partition) {
+function calculatePartitionRange(partition) {
     if (partition === "F") {
         const minPt = startingRangeFB.min
         const maxPt = (startingRangeFB.max - startingRangeFB.min) / 2
