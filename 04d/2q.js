@@ -3,36 +3,30 @@ const { parseData } = require("../04d/1q.js")
 const { isValidPassport } = require("../04d/1q.js")
 
 function getResult(inputData) {
-    let passports = parseData(inputData)//.filter(isValidPassport).filter(isValidPassportAddtionalCheck)
-    let validPassports = getValidPassportsFrom(passports)//.filter(isValidPassportAddtionalCheck)
-
-    var validCount = 0
-    for (let i = 0; i < passports.length; i++) {
-        if (isValidPassportAddtionalCheck(validPassports[i])) {
-            validCount++
-        }
-    }
-    return validCount
+    let passports = parseData(inputData)
+    let validPassports = getValidPassportsFrom(passports)
+    return validPassports.length
 }
 
 function getValidPassportsFrom(passports) {
     let output = []
     for (let i = 0; i < passports.length; i++) {
         let passport = passports[i]
-        if (isValidPassport(passport)) output.push(passport)
+        if (isValidPassport(passport) &&  isValidPassportAddtionalCheck(passport)) {
+            output.push(passport)
+        }
     }
     return output
 }
 
-function isValidPassportAddtionalCheck(value) {
-    print(value)
-    return isInRange(value.byr, 1920, 2002) &&
-            isInRange(value.iyr, 2010, 2020) &&
-            isInRange(value.eyr, 2020, 2030) &&
-            isValidHeight(value.hgt) &&
-            isValidEyeColor(value.ecl) &&
-            isValidPassportID(value.pid) &&
-            isValidHairColor(value.hcl)
+function isValidPassportAddtionalCheck(passport) {
+    return isInRange(passport.byr, 1920, 2002) &&
+            isInRange(passport.iyr, 2010, 2020) &&
+            isInRange(passport.eyr, 2020, 2030) &&
+            isValidHeight(passport.hgt) &&
+            isValidEyeColor(passport.ecl) &&
+            isValidPassportID(passport.pid) &&
+            isValidHairColor(passport.hcl)
 
 }
 
@@ -50,21 +44,19 @@ function isValidHeight(height) {
 
 function isValidEyeColor(eyeColor) {
     const options = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
-    for (option in options) {
-        if (eyeColor == option) return true
+    for (let i = 0; i < options.length; i++) {
+        const option = options[i]
+        if (eyeColor === option) return true
     }
     return false
 }
 
-function isValidPassportID(id) {
-    return parseInt(id) >= 000000000 && parseInt(id) <= 999999999
+function isValidPassportID(pid) {
+    return new RegExp(/^[0-9]{9}$/).test(pid)
 }
 
 function isValidHairColor(color) {
     return new RegExp(/^#[0-9a-f]{6}$/i).test(color)
 }
 
-function print(obj) {
-    console.log(obj)
-}
 console.log(getResult(getData("input.txt")))
