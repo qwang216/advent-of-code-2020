@@ -23,11 +23,12 @@ function parseData(inputArr) {
     let passportData = {}
     for (let i = 0; i < inputArr.length; i++) {
         const element = inputArr[i]
-        if (element === "") {
+        if (element !== "") {
+            passportData = Object.assign(passportData, parse(element))
+            if (i === inputArr.length - 1 ) outputData.push(passportData)
+        } else {
             outputData.push(passportData)
             passportData = {}
-        } else {
-            passportData = Object.assign(passportData, parse(element))
         }
     }
     return outputData
@@ -42,5 +43,8 @@ function parse(fields) {
     }
     return outputObj
 }
+
+exports.parseData = parseData
+exports.isValidPassport = isValidPassport
 
 console.log(getResult(getData("input.txt")))
