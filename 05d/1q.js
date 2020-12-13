@@ -47,6 +47,8 @@ function calculatePartitionRange(partition, startingRangeFB, startingRangeLR) {
     }
 }
 
+exports.calculateSeatID = calculateSeatID
+
 // console.log(getResult(["BBFFBBFRLL", "BBFFBBFRLL", "BFFFBBFRRR"]))
 
 console.log(getResult(getData("input.txt")))
