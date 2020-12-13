@@ -4,35 +4,34 @@ function getResult(inputDataArr) {
     let maxSeatID = -Infinity
     for (let i = 0; i < inputDataArr.length; i++) {
         let currSeatID = calculateSeatID(inputDataArr[i])
-        // print(currSeatID)
         if (currSeatID > maxSeatID) { 
             maxSeatID = currSeatID
         }
     }
     return maxSeatID
 }
-
-let startingRangeFB = { min: 0,
-    max: 127 }
-let startingRangeLR = { min: 0,
-    max: 7 }
-let lastFBPartition = "F"
-let lastLRPartition = "L"
 // BFFFBBFRRR
 function calculateSeatID(boardingPass) {
+    let startingRangeFB = { min: 0,
+        max: 127 }
+    let startingRangeLR = { min: 0,
+        max: 7 }
+    let lastFBPartition = "F"
+    let lastLRPartition = "L"
+
     let partitions = boardingPass.split("")
     lastFBPartition = partitions[6]
-    lastLRPartition = partitions[partitions.length - 1]
+    lastLRPartition = partitions[partitions.length - 2]
     for (let i = 0; i < partitions.length; i++) {
         const partition = partitions[i]
-        calculatePartitionRange(partition)
+        calculatePartitionRange(partition, startingRangeFB, startingRangeLR)
     }
     let row = lastFBPartition === "F" ? startingRangeFB.min : startingRangeFB.max
     let col = lastLRPartition === "L" ? startingRangeLR.min : startingRangeLR.max
     return (row * 8) + col
 }
 
-function calculatePartitionRange(partition) {
+function calculatePartitionRange(partition, startingRangeFB, startingRangeLR) {
     if (partition === "F") {
         const maxPt = (startingRangeFB.max + startingRangeFB.min) / 2
         startingRangeFB.max = Math.floor(maxPt)
@@ -48,6 +47,6 @@ function calculatePartitionRange(partition) {
     }
 }
 
-// console.log(getResult(["BBFFBBFRLL", "BFFFBBFRRR", "BBFFBBFRLL"]))
+// console.log(getResult(["BBFFBBFRLL", "BBFFBBFRLL", "BFFFBBFRRR"]))
 
 console.log(getResult(getData("input.txt")))
